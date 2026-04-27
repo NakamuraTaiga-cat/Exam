@@ -1,7 +1,12 @@
 package scoremanager.main;
 
-import bean.Student;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+
+import bean.School;
 import bean.Teacher;
+import dao.ClassNumDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -15,22 +20,26 @@ public class StudentCreateAction extends Action {
 		 HttpSession session = request.getSession();
 		 Teacher teacher = (Teacher)session.getAttribute("user");
 		
-//		      リクエストパラメータ
-		 String entYearStr = request.getParameter("ent-year");
-		 String noStr   = request.getParameter("no");
-		 String nameStr   = request.getParameter("name");
-		 String classNumStr = request.getParameter("class-num");
-		 
-			int entYear = Integer.parseInt(entYearStr);
-			
-			Student student = new Student();
-			student.setEntYear(entYear);
-			student.setNo(noStr);
-			student.setName(nameStr);
-			student.setClassNum(classNumStr);
-			student.setSchool(teacher.getSchool());
+		 School school = teacher.getSchool();
 
-		 
+		List<Integer> entYearSet = new ArrayList<>();
+	    int currentYear = Year.now().getValue();
+	    for (int i = currentYear; i >= currentYear - 10; i--) {
+	        entYearSet.add(i);
+	    }
+		
+
+	    ClassNumDao classDao = new ClassNumDao();
+        List<String> classList = classDao.filter(school);
+
+
+		request.setAttribute("ent_year_set", entYearSet);
+        request.setAttribute("class_list", classList);
+
+        /* 画面表示 */
+        request.getRequestDispatcher("/scoremanager/main/student_create.jsp")
+           .forward(request, response);
+
      
      
      

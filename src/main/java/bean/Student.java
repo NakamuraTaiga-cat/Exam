@@ -46,11 +46,10 @@ public class Student implements Serializable {
 	public void setSchool(School school) {
 		this.school = school;
 	}
-
 	public int getSchoolYear() {
-		int currentYear = Year.now().getValue();
-		return currentYear - this.entYear + 1;
-	
+	    int currentYear = Year.now().getValue();
+	    return currentYear - this.entYear + 1;
 	}
+
 	
 }
