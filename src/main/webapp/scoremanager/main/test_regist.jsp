@@ -10,7 +10,7 @@
 	<c:param name="content">
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
-			<form method="get">
+			<form method="get" action="TestRegist.action">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 				<%-- 入学年度のセレクト --%>
 					<div class="col-2">
@@ -38,7 +38,7 @@
 						<select class="form-select " id="student-f3-select" name="f3">
 							<option value="0">--------</option>
 							<c:forEach var="subject" items="${ subject_set }">
-								<option value="${ subject.cd }" <c:if test="${ subject.cd==f3 }">selected</c:if>>${ subject }</option>
+								<option value="${ subject.cd }">${ subject.name }</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -58,8 +58,72 @@
 					<div class="mt-2 text-warning">${ errors.get("f1") }</div>
 				</div>
 				<%-- 検索ボタンを押した後 --%>
-				
 			</form>
+			<c:if test="${ not empty test_list }">
+				<c:choose>
+				
+				    <%-- 検索結果があるとき --%>
+				    <c:when test="${ test_list.size() > 0 }">
+				        <div class="mb-2">
+				            科目：${ subject.name }（${ testNo }回）
+				        </div>
+	
+				            <table class="table table-hover">
+				                <thead>
+				                    <tr>
+				                        <th>入学年度</th>
+				                        <th>クラス</th>
+				                        <th>学生番号</th>
+				                        <th>氏名</th>
+				                        <th>点数</th>
+				                    </tr>
+				                </thead>
+				
+				                <tbody>
+				                    <c:forEach var="t" items="${ test_list }">
+				                        <tr>
+	
+				                            <td>${ t.student.entYear }</td>
+	
+				                            <td>${ t.student.classNum }</td>
+	
+				                            <td>
+				                                ${ t.student.no }
+				                                <input type="hidden"
+				                                       name="studentNo"
+				                                       value="${ t.student.no }">
+				                            </td>
+	
+				                            <td>${ t.student.name }</td>
+	
+				                            <td>
+				                                <input type="number"
+				                                       class="form-control"
+				                                       name="point"
+				                                       value="${ t.point }"
+				                                       min="0" max="100">
+				                            </td>
+				                        </tr>
+				                    </c:forEach>
+				                </tbody>
+				            </table>
+				
+				            <div class="mt-3">
+				                <button class="btn btn-secondary">
+				                    登録して終了
+				                </button>
+				            </div>
+				
+				    </c:when>
+				
+				    <%-- 検索結果が0件のとき --%>
+				    <c:otherwise>
+				        <div>該当する成績情報が存在しませんでした</div>
+				    </c:otherwise>
+				
+				</c:choose>
+				
+			</c:if>
 		</section>
 	</c:param>
 </c:import>

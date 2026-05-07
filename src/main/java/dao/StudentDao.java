@@ -327,7 +327,28 @@ public class StudentDao extends Dao {
 		}
 	}
 	
+
+	public List<Integer> getEntYearList(School school) throws Exception {
+	    List<Integer> list = new ArrayList<>();
 	
+	    Connection con = getConnection();
+	    PreparedStatement ps = con.prepareStatement(
+	        "SELECT DISTINCT ent_year FROM student WHERE school_cd = ? ORDER BY ent_year"
+	    );
+	    ps.setString(1, school.getCd());
+	
+	    ResultSet rs = ps.executeQuery();
+	    while (rs.next()) {
+	        list.add(rs.getInt("ent_year"));
+	    }
+	
+	    rs.close();
+	    ps.close();
+	    con.close();
+	
+	    return list;
+	}
+
 
 
 }
