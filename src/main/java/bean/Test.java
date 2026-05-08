@@ -9,7 +9,7 @@ public class Test implements Serializable {
 	private Subject subject;
 	private School school;
 	private int no;
-	private int point;
+	private Integer point;
 	public Student getStudent() {
 		return student;
 	}
@@ -40,10 +40,10 @@ public class Test implements Serializable {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getPoint() {
+	public Integer getPoint() {
 		return point;
 	}
-	public void setPoint(int point) {
+	public void setPoint(Integer point) {
 		this.point = point;
 	}
 	

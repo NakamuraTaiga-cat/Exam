@@ -35,26 +35,51 @@ public class TestRegistAction extends Action {
         String f4 = request.getParameter("f4"); // 回数
 
 
-		if (
-		    (f1 != null && !"0".equals(f1)) || (f2 != null && !"0".equals(f2)) ||
-		    (f3 != null && !"0".equals(f3)) || (f4 != null && !"0".equals(f4))
-		) {
+
+		if (f1 != null) {
 		
-            int entYear = Integer.parseInt(f1);
-            String classNum = f2;
-            int testNo = Integer.parseInt(f4);
+		    // 全項目が選択されている場合
+		    if (
+		        !"0".equals(f1) &&
+		        !"0".equals(f2) &&
+		        !"0".equals(f3) &&
+		        !"0".equals(f4)
+		    ) {
+		
+		        int entYear = Integer.parseInt(f1);
+		        String classNum = f2;
+		        int testNo = Integer.parseInt(f4);
+		
+		        Subject subject = new Subject();
+		        
+		        subject.setCd(f3);
+		        
+		
+		        TestDao dao = new TestDao();
+		        List<Test> testList =
+		                dao.filter(entYear, classNum, subject, testNo, school);
 
-            Subject subject = new Subject();
-            subject.setCd(f3);
+		        request.setAttribute("searched", true);
+		        request.setAttribute("test_list", testList);
+		        request.setAttribute("subject", subject);
+		        request.setAttribute("test_no", testNo);
+		
+		    } else {
+		        // 検索押下後だが未選択あり
+		        request.setAttribute(
+		            "message",
+		            "入学年度とクラスと科目と回数を選択してください"
+		        );
+		    }
 
-            TestDao dao = new TestDao();
-            List<Test> testList =
-                    dao.filter(entYear, classNum, subject, testNo, school);
 
-            request.setAttribute("test_list", testList);
-            request.setAttribute("subject", subject);
-            request.setAttribute("test_no", testNo);
-        }
+		    request.setAttribute("f1", f1);
+		    request.setAttribute("f2", f2);
+		    request.setAttribute("f3", f3);
+		    request.setAttribute("f4", f4);
+
+		}
+
 
         request.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
                .forward(request, response);

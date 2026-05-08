@@ -51,7 +51,12 @@ public class TestDao extends Dao {
 			test.setStudent(student);
 			test.setSubject(subject);
 			test.setNo(testNo);
-			test.setPoint(rs.getInt("point"));
+			int p = rs.getInt("point");
+			if (rs.wasNull()) {
+			    test.setPoint(null);
+			} else {
+			    test.setPoint(p);
+			}
 			test.setSchool(school);
 			
 			list.add(test);
@@ -65,61 +70,85 @@ public class TestDao extends Dao {
         return list;
     }
 
-    public boolean save(List<Test> list) throws Exception {
 
-        Connection con = getConnection();
-        boolean result = true;
+	public boolean save(List<Test> list) throws Exception {
+	
+	    if (list == null || list.isEmpty()) {
+	        return false;
+	    }
+	
+	    Connection con = getConnection();
+	    con.setAutoCommit(false);
+	
+	    boolean result = true;
+	
+	    String checkSql =
+	        "SELECT COUNT(*) FROM test " +
+	        "WHERE student_no = ? AND subject_cd = ? AND no = ? AND school_cd = ?";
+	
+	    String insertSql =
+	        "INSERT INTO test(student_no, subject_cd, school_cd, no, point, class_num) " +
+	        "VALUES (?, ?, ?, ?, ?, ?)";
+	
+	    String updateSql =
+	    		"UPDATE test SET point = ?, class_num = ? " +
+	    		"WHERE student_no = ? AND subject_cd = ? AND school_cd = ? AND no = ?";
 
-        String checkSql =
-            "SELECT COUNT(*) FROM test " +
-            "WHERE student_no = ? AND subject_cd = ? AND no = ?";
+	    try {
+	        for (Test test : list) {
+	
+	            PreparedStatement checkPs = con.prepareStatement(checkSql);
+	            checkPs.setString(1, test.getStudent().getNo());
+	            checkPs.setString(2, test.getSubject().getCd());
+	            checkPs.setInt(3, test.getNo());
+	            checkPs.setString(4, test.getSchool().getCd());
+	
+	            ResultSet rs = checkPs.executeQuery();
+	            rs.next();
+	            boolean exists = rs.getInt(1) > 0;
+	
+	            rs.close();
+	            checkPs.close();
+	
+	            PreparedStatement ps;
 
-        String insertSql =
-            "INSERT INTO test(student_no, subject_cd, no, point) " +
-            "VALUES (?, ?, ?, ?)";
+				if (exists) {
+				    ps = con.prepareStatement(updateSql);
+					ps.setInt(1, test.getPoint());
+					ps.setString(2, test.getStudent().getClassNum());
+					ps.setString(3, test.getStudent().getNo());
+					ps.setString(4, test.getSubject().getCd());
+					ps.setString(5, test.getSchool().getCd());
+					ps.setInt(6, test.getNo());
+				} else {
+				    ps = con.prepareStatement(insertSql);
+					ps.setString(1, test.getStudent().getNo());
+					ps.setString(2, test.getSubject().getCd());
+					ps.setString(3, test.getSchool().getCd());
+					ps.setInt(4, test.getNo());
+					ps.setInt(5, test.getPoint());
+				    ps.setString(6, test.getStudent().getClassNum());
+				}
 
-        String updateSql =
-            "UPDATE test SET point = ? " +
-            "WHERE student_no = ? AND subject_cd = ? AND no = ?";
+	
+	            if (ps.executeUpdate() != 1) {
+	                result = false;
+	            }
+	
+	            ps.close();
+	        }
+	
+	        con.commit();
+	
+	    } catch (Exception e) {
+	        con.rollback();
+	        throw e;
+	
+	    } finally {
+	        con.close();
+	    }
+	
+	    return result;
+	}
 
-        for (Test test : list) {
-
-            // 登録済みか確認
-            PreparedStatement checkPs = con.prepareStatement(checkSql);
-            checkPs.setString(1, test.getStudent().getNo());
-            checkPs.setString(2, test.getSubject().getCd());
-            checkPs.setInt(3, test.getNo());
-
-            ResultSet rs = checkPs.executeQuery();
-            rs.next();
-            boolean exists = rs.getInt(1) > 0;
-
-            rs.close();
-            checkPs.close();
-
-            PreparedStatement ps;
-            if (exists) {
-                ps = con.prepareStatement(updateSql);
-                ps.setInt(1, test.getPoint());
-                ps.setString(2, test.getStudent().getNo());
-                ps.setString(3, test.getSubject().getCd());
-                ps.setInt(4, test.getNo());
-            } else {
-                ps = con.prepareStatement(insertSql);
-                ps.setString(1, test.getStudent().getNo());
-                ps.setString(2, test.getSubject().getCd());
-                ps.setInt(3, test.getNo());
-                ps.setInt(4, test.getPoint());
-            }
-
-            if (ps.executeUpdate() != 1) {
-                result = false;
-            }
-
-            ps.close();
-        }
-
-        con.close();
-        return result;
-    }
 }

@@ -1,5 +1,6 @@
 package bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.ClassNumDao;
@@ -42,8 +43,14 @@ public class Util {
         request.setAttribute("subject_set", subjectSet);
     }
 
-    public static void setNumSet(HttpServletRequest request) {
-        request.setAttribute("num_set", List.of(1, 2, 3));
-    }
+
+	public static void setNumSet(HttpServletRequest request) {
+	    List<Integer> list = new ArrayList<>();
+	    for (int i = 1; i <= 10; i++) {
+	        list.add(i);
+	    }
+	    request.setAttribute("num_set", list);
+	}
+
 }
 
