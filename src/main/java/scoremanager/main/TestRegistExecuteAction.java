@@ -111,6 +111,7 @@ public class TestRegistExecuteAction extends Action {
 
             request.setAttribute("searched", true);
             request.setAttribute("errors", errors);
+            request.setAttribute("f2", f2);
             request.setAttribute("f3", f3);
             request.setAttribute("f4", f4);
             request.setAttribute("test_list", saveList);

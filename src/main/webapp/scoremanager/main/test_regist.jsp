@@ -107,15 +107,17 @@
                                         <input type="number"
                                                class="form-control"
                                                name="point_${ t.student.no }"
+                                               min="0" max="100"
                                                <c:if test="${ t.point != null }">
                                                    value="${ t.point }"
                                                </c:if>
+                                          
+										<c:if test="${ errors != null and not empty errors['point_' + t.student.no] }">
+					                      <div class="text-warning small mt-1 ps-1">
+					                        ${ errors['point_' + t.student.no] }
+					                      </div>
+					                    </c:if>
 
-                                        <c:if test="${ errors != null and not empty errors['point_' + t.student.no] }">
-                                            <div class="text-warning">
-                                                ${ errors['point_' + t.student.no] }
-                                            </div>
-                                        </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>
