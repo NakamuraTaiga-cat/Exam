@@ -21,7 +21,7 @@
             <div class="d-flex gap-5 mt-4">
                 <a href="TestRegist.action">戻る</a>
                            
-                <a href="">成績参照</a>
+                <a href="TestList.action">成績参照</a>
             </div>
 
         </section>
