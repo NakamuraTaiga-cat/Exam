@@ -57,18 +57,8 @@ public class TestRegistExecuteAction extends Action {
             if (value == null || value.isEmpty()) continue;
 
             int point;
-            try {
-                point = Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                errors.put(name, "0～100の範囲で入力してください");
-                continue;
-            }
-
-            if (point < 0 || point > 100) {
-                errors.put(name, "0～100の範囲で入力してください");
-                continue;
-            }
-
+            point = Integer.parseInt(value);
+            
             Student student = new Student();
             student.setNo(studentNo);
             student.setClassNum(f2);

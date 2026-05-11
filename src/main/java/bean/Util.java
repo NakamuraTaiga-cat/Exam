@@ -46,7 +46,7 @@ public class Util {
 
 	public static void setNumSet(HttpServletRequest request) {
 	    List<Integer> list = new ArrayList<>();
-	    for (int i = 1; i <= 10; i++) {
+	    for (int i = 1; i <= 2; i++) {
 	        list.add(i);
 	    }
 	    request.setAttribute("num_set", list);
