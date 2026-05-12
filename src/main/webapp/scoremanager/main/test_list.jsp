@@ -117,6 +117,18 @@
 	      <c:if test="${searchType == 'student'}">
 	
 	        <h4 class="ms-3 mt-4">成績一覧（学生）</h4>
+
+																					<!-- 対象学生の氏名と学生番号を表示 -->
+																					<p class="ms-3">
+																					  <c:choose>
+																																																																						<c:when test="${not empty student}">
+																																																																						  氏名：<c:out value="${student.name}"/> (<c:out value="${f4}"/>)
+																																																																						</c:when>
+																						<c:otherwise>
+																						  氏名：該当なし (<c:out value="${f4}"/>)
+																						</c:otherwise>
+																					  </c:choose>
+																					</p>
 	
 	        <table class="table table-hover ms-3 mt-2">
 	          <thead>

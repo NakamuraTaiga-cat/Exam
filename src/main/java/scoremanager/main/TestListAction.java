@@ -39,21 +39,26 @@ public class TestListAction extends Action {
             return;
         }
 
-//        if (f4 != null && !f4.isBlank()) {
-//
-//            TestListStudentDao dao = new TestListStudentDao();
-//            List<TestListStudent> list =
-//                dao.filter(f4, teacher.getSchool());
-//
-//            request.setAttribute("student_list", list);
-//            request.setAttribute("searchType", "student");
-//            request.setAttribute("searched", true);
-//            request.setAttribute("f4", f4);
-//
-//            request.getRequestDispatcher("test_list.jsp")
-//                   .forward(request, response);
-//            return;
-//        }
+        if (f4 != null && !f4.isBlank()) {
+
+            dao.TestListStudentDao daoStudentList = new dao.TestListStudentDao();
+            java.util.List<bean.TestListStudent> list =
+                daoStudentList.filter(f4, teacher.getSchool());
+
+            // 学生名を取得して画面に渡す
+            dao.StudentDao studentDao = new dao.StudentDao();
+            bean.Student student = studentDao.get(f4);
+
+            request.setAttribute("student_list", list);
+            request.setAttribute("searchType", "student");
+            request.setAttribute("searched", true);
+            request.setAttribute("f4", f4);
+            request.setAttribute("student", student);
+
+            request.getRequestDispatcher("test_list.jsp")
+                   .forward(request, response);
+            return;
+        }
 
 
         if ("0".equals(f1) || "0".equals(f2) || "0".equals(f3)) {
