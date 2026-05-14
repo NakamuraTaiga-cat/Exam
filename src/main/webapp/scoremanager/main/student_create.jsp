@@ -19,26 +19,35 @@
 							<option value="${ year }" <c:if test="${ year==ent_year }">selected</c:if>>${ year }</option>
 						</c:forEach>
 					</select>
+					<c:if test="${ not empty errors.ent_year }">
+						<div class="text-warning">${ errors.ent_year }</div>
+					</c:if>
 				</div>
 				<%-- 学生番号入力 --%>
 				<div class="col-12">
 					<label class="form-label" for="student-num">学生番号</label><br>
 					<input type="text" class="form-control" id="no" name="no" maxlength="10" required placeholder="学生番号を入力してください" value="${ no }">
+					<c:if test="${ not empty errors.no }">
+						<div class="text-warning">${ errors.no }</div>
+					</c:if>
 				</div>
 				<%-- 氏名入力 --%>
 				<div class="col-12">
 					<label class="form-label" for="student-name">氏名</label><br>
 					<input type="text" class="form-control" id="name" name="name" maxlength="30" required placeholder="氏名を入力してください" value="${ name }">
+					<c:if test="${ not empty errors.name }">
+						<div class="text-danger">${ errors.name }</div>
+					</c:if>
 				</div>
 				<%-- クラス選択 --%>
 					<div class="col-12">
 						<label class="form-label" for="class-num">クラス</label>
 						<select class="form-select " id="class-num" name="class-num">
 							<option value="0">--------</option>
-							<c:forEach var="class_num" items="${ class_list }">
-								<option value="${ class_num }" >${ class_num }</option>
+							<c:forEach var="cnum" items="${ class_list }">
+								<option value="${ cnum }" <c:if test="${ cnum==class_num }">selected</c:if>>${ cnum }</option>
 							</c:forEach>
-						</select>					
+						</select>                    
 					</div>
 				<%-- ボタン --%>
 				<br>

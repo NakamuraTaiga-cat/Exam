@@ -45,7 +45,7 @@ ${param.scripts}
 							<li class="nav-item mx-3 mb-3"><a href="/exam_login/scoremanager/main/TestRegist.action">成績登録</a></li>
 							<li class="nav-item mx-3 mb-3"><a href="/exam_login/scoremanager/main/TestList.action">成績参照</a></li>
 							<li class="nav-item mb-3"><a href="/exam_login/scoremanager/main/SubjectList.action">科目管理</a></li>
-							<li class="nav-item mb-3"><a href="/exam_login/scoremanager/main/ClassList.action">クラス管理</a></li>
+							<!-- クラス管理は不要のため削除 -->
 						</ul>
 
 					</nav>
