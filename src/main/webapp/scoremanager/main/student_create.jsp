@@ -51,7 +51,7 @@
 		            <button type="submit" name="end" class="btn btn-secondary">登録して終了</button>
 				</div>
 				<div>
-					<a href="./student_list.jsp">戻る</a>
+					<a href="StudentList.action">戻る</a>
 				</div>
 			</form>
 		</section>
