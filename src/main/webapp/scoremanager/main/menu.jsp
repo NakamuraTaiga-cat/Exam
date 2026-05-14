@@ -33,8 +33,6 @@
 					style="height: 10rem; background-color: #bbd;">
 					<a href="SubjectList.action">科目管理</a>
 				</div>
-	
-				
 			</div>
 		</section>
 	</c:param>
