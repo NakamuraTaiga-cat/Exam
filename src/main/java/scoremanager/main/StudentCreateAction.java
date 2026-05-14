@@ -40,10 +40,6 @@ public class StudentCreateAction extends Action {
         request.getRequestDispatcher("/scoremanager/main/student_create.jsp")
            .forward(request, response);
 
-     
-     
-     
-     
 	}
 	
 }

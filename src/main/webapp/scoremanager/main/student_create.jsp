@@ -13,8 +13,8 @@
 				<%--入学年度選択 --%>
 				<div class="col-12">
 					<label class="form-label" for="entyear-select">入学年度</label>
-					<select class="form-select " id="ent-year" name="ent-year">
-						<option value="0">--------</option>
+					<select class="form-select " id="ent-year" name="ent-year" required>
+						<option value="">--------</option>
 						<c:forEach var="year" items="${ ent_year_set }">
 							<option value="${ year }" <c:if test="${ year==ent_year }">selected</c:if>>${ year }</option>
 						</c:forEach>
@@ -24,6 +24,11 @@
 				<div class="col-12">
 					<label class="form-label" for="student-num">学生番号</label><br>
 					<input type="text" class="form-control" id="no" name="no" maxlength="10" required placeholder="学生番号を入力してください" value="${ no }">
+					<c:if test="${not empty error_no}">
+					    <div class="text-warning mt-1">
+					      ${error_no}
+					    </div>
+					</c:if>
 				</div>
 				<%-- 氏名入力 --%>
 				<div class="col-12">
@@ -33,8 +38,8 @@
 				<%-- クラス選択 --%>
 					<div class="col-12">
 						<label class="form-label" for="class-num">クラス</label>
-						<select class="form-select " id="class-num" name="class-num">
-							<option value="0">--------</option>
+						<select class="form-select " id="class-num" name="class-num" required>
+							<option value="">--------</option>
 							<c:forEach var="class_num" items="${ class_list }">
 								<option value="${ class_num }" >${ class_num }</option>
 							</c:forEach>
