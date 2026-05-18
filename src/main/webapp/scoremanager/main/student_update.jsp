@@ -12,19 +12,18 @@
 
 			<form method="post" action="StudentUpdateExecute.action">
 
+				<%-- 入学年度（表示のみ） --%>
+				<div class="col-12">
+					<label class="form-label">入学年度</label>
+					<div class="form-control-plaintext">${ ent_year }</div>
+					<input type="hidden" name="ent-year" value="${ ent_year }" />
+				</div>
 				<%-- 学生番号（表示のみ：枠なしで背景と同色に） --%>
 				<div class="col-12">
 					<label class="form-label" for="no">学生番号</label>
 					<div class="form-control-plaintext" id="no">${ no }</div>
 					<!-- 送信用に hidden で値を保持 -->
 					<input type="hidden" name="no" value="${ no }" />
-				</div>
-
-				<%-- 入学年度（表示のみ） --%>
-				<div class="col-12">
-					<label class="form-label">入学年度</label>
-					<div class="form-control-plaintext">${ ent_year }</div>
-					<input type="hidden" name="ent-year" value="${ ent_year }" />
 				</div>
 
 				<%-- 氏名入力 --%>
@@ -39,8 +38,8 @@
 				<%-- クラス選択 --%>
 				<div class="col-12">
 					<label class="form-label" for="class-num">クラス</label>
-					<select class="form-select " id="class-num" name="class-num">
-						<option value="0">--------</option>
+					<select class="form-select " id="class-num" name="class-num" required>
+						<option value="">--------</option>
 						<c:forEach var="cnum" items="${ class_list }">
 							<option value="${ cnum }" <c:if test="${ cnum==class_num }">selected</c:if>>${ cnum }</option>
 						</c:forEach>
