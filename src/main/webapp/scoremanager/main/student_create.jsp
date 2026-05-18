@@ -28,9 +28,9 @@
 					<label class="form-label" for="student-num">学生番号</label><br>
 					<input type="text" class="form-control" id="no" name="no" maxlength="10" required placeholder="学生番号を入力してください" value="${ no }">
 
-					<c:if test="${not empty error_no}">
+					<c:if test="${not empty errors.no}">
 					    <div class="text-warning mt-1">
-					      ${error_no}
+					      ${errors.no}
 					    </div>
 
 					</c:if>
