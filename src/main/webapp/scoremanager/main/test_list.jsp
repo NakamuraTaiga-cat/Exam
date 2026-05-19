@@ -60,13 +60,27 @@
 				</div>
 			</form>
 			
-        </section>
+		</section>
 
 		<c:if test="${not searched}">
-	        <p class="text-primary ms-3">
-	          科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
-	        </p>
-      	</c:if>
+			<c:choose>
+				<c:when test="${not empty errorMessage}">
+					<c:choose>
+						<c:when test="${errorMessage == '学生情報が存在しませんでした'}">
+							<p class="text-dark ms-3">${errorMessage}</p>
+						</c:when>
+						<c:otherwise>
+							<p class="text-danger ms-3">${errorMessage}</p>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+				<c:otherwise>
+					<p class="text-primary ms-3">
+					  科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
+					</p>
+				</c:otherwise>
+			</c:choose>
+		  </c:if>
 
 	      <c:if test="${searchType == 'subject'}">
 	
@@ -116,7 +130,7 @@
 	
 	      <c:if test="${searchType == 'student'}">
 	
-	        <h4 class="ms-3 mt-4">成績一覧（学生）</h4>
+	        <h4 class="ms-3 mt-4"></h4>
 
 				<!-- 対象学生の氏名と学生番号を表示 -->
 				<p class="ms-3">
