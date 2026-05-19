@@ -153,7 +153,7 @@
 				        </table>
 					</c:when>
 					<c:otherwise>
-						<p class="ms-3">成績情報が存在しませんでした</p>
+						<p class="ms-3">成績情報が存在しませんでした</p>　
 					</c:otherwise>
 				</c:choose>
 	      </c:if>
