@@ -129,28 +129,33 @@
 					</c:otherwise>
 				  </c:choose>
 				</p>
-	
-	        <table class="table table-hover ms-3 mt-2">
-	          <thead>
-	            <tr>
-	              <th>科目名</th>
-	              <th>科目コード</th>
-	              <th>回数</th>
-	              <th>点数</th>
-	            </tr>
-	          </thead>
-	          <tbody>
-	            <c:forEach var="t" items="${student_list}">
-	              <tr>
-	                <td>${t.subjectName}</td>
-	                <td>${t.subjectCd}</td>
-	                <td>${t.num}</td>
-	                <td>${t.point}</td>
-	              </tr>
-	            </c:forEach>
-	          </tbody>
-	        </table>
-	
+				<c:choose>
+					<c:when test="${not empty student_list}">
+				        <table class="table table-hover ms-3 mt-2">
+				          <thead>
+				            <tr>
+				              <th>科目名</th>
+				              <th>科目コード</th>
+				              <th>回数</th>
+				              <th>点数</th>
+				            </tr>
+				          </thead>
+				          <tbody>
+				            <c:forEach var="t" items="${student_list}">
+				              <tr>
+				                <td>${t.subjectName}</td>
+				                <td>${t.subjectCd}</td>
+				                <td>${t.num}</td>
+				                <td>${t.point}</td>
+				              </tr>
+				            </c:forEach>
+				          </tbody>
+				        </table>
+					</c:when>
+					<c:otherwise>
+						<p class="ms-3">成績情報が存在しませんでした</p>
+					</c:otherwise>
+				</c:choose>
 	      </c:if>
 	
   </c:param>
