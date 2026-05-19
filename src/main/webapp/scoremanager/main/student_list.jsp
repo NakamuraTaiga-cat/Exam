@@ -26,7 +26,7 @@
 					</div>
 					<div class="col-4">
 						<label class="form-label" for="student-f2-select">クラス</label>
-						<select classs="form-select " id="student-f2-select" name="f2">
+						<select class="form-select " id="student-f2-select" name="f2">
 							<option value="0">--------</option>
 							<c:forEach var="num" items="${ class_num_set }">
 								<option value="${ num }" <c:if test="${ num==f2 }">selected</c:if>>${ num }</option>
@@ -57,7 +57,6 @@
 							<th>クラス</th>
 							<th class="text-center">在学中</th>
 							<th></th>
-							<th></th>
 						</tr>
 						<c:forEach var="student" items="${ students }">
 							<tr>
@@ -77,7 +76,7 @@
 									</c:choose>
 								</td>
 								<td><a href="StudentUpdate.action?no=${ student.no }">変更</a></td>
-								<td><a href="StudentDelete.action?no=${ student.no }">削除</a></td>
+
 							</tr>
 						</c:forEach>
 					</table>
