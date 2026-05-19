@@ -10,6 +10,6 @@
 		driverClassName="org.postgresql.Driver"
 		url="jdbc:postgresql://localhost:5432/exam"
 		username="postgres"
-		password="1234"
+		password="pass"
 	/>
 </Context>
