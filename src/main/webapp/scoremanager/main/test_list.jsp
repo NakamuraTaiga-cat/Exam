@@ -130,7 +130,7 @@
 	
 	      <c:if test="${searchType == 'student'}">
 	
-	        <h4 class="ms-3 mt-4"></h4>
+	        <h4 class="ms-3 mt-4">成績一覧（学生）</h4>
 
 				<!-- 対象学生の氏名と学生番号を表示 -->
 				<p class="ms-3">
