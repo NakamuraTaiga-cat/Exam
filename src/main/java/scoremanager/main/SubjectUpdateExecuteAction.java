@@ -1,6 +1,8 @@
 package scoremanager.main;
 
 import bean.Subject;
+import bean.Teacher;
+import bean.Util;
 import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -65,9 +67,12 @@ public class SubjectUpdateExecuteAction extends Action {
         }
 
         // 更新
-        Subject subject = new Subject();
 
-        subject.setSchoolCd("TIC");
+		Teacher teacher = Util.getUser(request);
+		
+		Subject subject = new Subject();
+		
+		subject.setSchoolCd(teacher.getSchool().getCd());
         subject.setCd(cd);
         subject.setName(name);
 
