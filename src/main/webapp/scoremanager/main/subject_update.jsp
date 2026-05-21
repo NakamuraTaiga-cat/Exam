@@ -63,6 +63,7 @@
         <input type="text"
                name="name"
                value="${subject.name}"
+               required
                placeholder="科目名を入力してください"
                style="width:100%;">
 
