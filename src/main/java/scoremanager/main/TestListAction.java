@@ -61,8 +61,12 @@ public class TestListAction extends Action {
         }
 
 
-        if ("0".equals(f1) || "0".equals(f2) || "0".equals(f3)) {
+        // 入力チェック: 入学年度、クラス、科目が未選択（空文字またはブランク）の場合は
+        // 検索画面に戻し、メッセージを表示する
+        if (f1 == null || f2 == null || f3 == null
+                || f1.isBlank() || f2.isBlank() || f3.isBlank()) {
             request.setAttribute("searched", false);
+            request.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
             request.getRequestDispatcher("test_list.jsp")
                    .forward(request, response);
             return;
@@ -75,6 +79,15 @@ public class TestListAction extends Action {
         TestListSubjectDao dao = new TestListSubjectDao();
         List<TestListSubject> list =
             dao.filter(entYear, classNum, subjectCd, teacher.getSchool());
+
+        // 該当データがない場合は検索画面へ戻してメッセージを表示する
+        if (list == null || list.isEmpty()) {
+            request.setAttribute("searched", false);
+            request.setAttribute("errorMessage", "学生情報が存在しませんでした");
+            request.getRequestDispatcher("test_list.jsp")
+                   .forward(request, response);
+            return;
+        }
 
         request.setAttribute("test_list", list);
         request.setAttribute("searchType", "subject");

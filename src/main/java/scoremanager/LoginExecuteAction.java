@@ -29,7 +29,9 @@ public class LoginExecuteAction extends Action {
 		password = req.getParameter("password");//パスワード
 
 		//DBからデータ取得 3
+		System.out.println("[LoginExecute] received id='" + id + "' passwordPresent=" + (password!=null && password.length()>0));
 		teacher = teacherDao.login(id, password);//教員データ取得
+		System.out.println("[LoginExecute] teacher lookup result: " + (teacher==null?"NOT FOUND":"FOUND name='"+teacher.getName()+"' school='"+(teacher.getSchool()!=null?teacher.getSchool().getName():"null")+"'"));
 
 		//ビジネスロジック 4
 		//DBへデータ保存 5
